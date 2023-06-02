@@ -6,7 +6,7 @@ services:
             POSTGRES_USER: blog_development
             POSTGRES_PASSWORD: blog_development
         volumes:
-            - /tmp/db:/var/lib/postgresql/data
+            - db_data:/var/lib/postgresql/data
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     web:
         build: .
@@ -22,3 +22,5 @@ services:
             - 3000:3000
         depends_on:
             - db
+volumes:
+    db_data:
