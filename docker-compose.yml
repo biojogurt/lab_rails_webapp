@@ -17,7 +17,7 @@ services:
             DB_USERNAME: blog_development
             DB_PASSWORD: blog_development
         volumes:
-            - .:/application:cached
+            - .:/application
         ports:
             - 3000:3000
         depends_on:
