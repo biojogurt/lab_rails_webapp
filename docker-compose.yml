@@ -1,21 +1,23 @@
-version: "3"
+version: "3.8"
 services:
     db:
         image: postgres:latest
         environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
+            POSTGRES_USER: blog_development
+            POSTGRES_PASSWORD: blog_development
         volumes:
             - /tmp/db:/var/lib/postgresql/data
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     web:
         build: .
         command: bundle exec rails server -p 3000 -b 0.0.0.0
         environment:
+            RAILS_ENV: development
             DB_HOST: db
-            DB_USERNAME: postgres
-            DB_PASSWORD: postgres
+            DB_USERNAME: blog_development
+            DB_PASSWORD: blog_development
         volumes:
-            - .:/application
+            - .:/application:cached
         ports:
             - 3000:3000
         depends_on:
